@@ -4,6 +4,7 @@ import os
 import time
 GRIDROWS=40
 GRIDCOLS=40
+GAMEROUNDS=200
 
 def create_grid(row_num,col_num):
     grid = [['' for _ in range(row_num)] for _ in range(col_num)]
@@ -95,7 +96,7 @@ def run_game(grid):
 
     # lets begin evaluation
     game_round = 0
-    while game_round < 100:
+    while game_round <= GAMEROUNDS:
         # run rules for each cell in the grid and track cells that need to be updated
         grid_updates = []
         for row in range(20):
