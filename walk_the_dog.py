@@ -13,8 +13,8 @@ def create_grid(row_num,col_num):
 def setup_grid(grid):
     # populate the grid with starting positions
     pattern1 = [(4,4), (4,5), (4,6), (3,6), (2,5)]
-    pattern2 = [(10,10), (10,11), (10,12), (11,11), (12,12), (12,14), (13,13)]
-    for coord in pattern2:
+    pattern2 = [(21,11), (20,11), (20,22), (21,22), (22,12), (22,21), (23,20)]
+    for coord in pattern1:
         change_cell_state('X', grid, coord[0], coord[1])
  
 def print_grid(grid):
@@ -43,28 +43,28 @@ def get_live_neighbors(grid, row, col):
     neighbors = []
     live_neighbors = 0
  
-    if (row-1 <= 19 and row-1 >= 0) and (col-1 <= 19 and col-1 >= 0):
+    if (row-1 <= GRIDROWS-1 and row-1 >= 0) and (col-1 <= GRIDCOLS-1 and col-1 >= 0):
         neighbors.append(grid[row-1][col-1])    # up-left
 
-    if (row-1 <= 19 and row-1 >= 0) and (col <= 19 and col >= 0):
+    if (row-1 <= GRIDROWS-1 and row-1 >= 0) and (col <= GRIDCOLS-1 and col >= 0):
         neighbors.append(grid[row-1][col])        # up
 
-    if (row-1 <= 19 and row-1 >= 0) and (col+1 <= 19 and col+1 >= 0):    
+    if (row-1 <= GRIDROWS-1 and row-1 >= 0) and (col+1 <= GRIDCOLS-1 and col+1 >= 0):    
         neighbors.append(grid[row-1][col+1])     # up-right
 
-    if (row <= 19 and row >= 0) and (col+1 <= 19 and col+1 >= 0):        
+    if (row <= GRIDROWS-1 and row >= 0) and (col+1 <= GRIDCOLS-1 and col+1 >= 0):        
         neighbors.append(grid[row][col+1])       # right
 
-    if (row+1 <= 19 and row+1 >= 0) and (col+1 <= 19 and col+1 >= 0):    
+    if (row+1 <= GRIDROWS-1 and row+1 >= 0) and (col+1 <= GRIDCOLS-1 and col+1 >= 0):    
         neighbors.append(grid[row+1][col+1])     # down-right
 
-    if (row+1 <= 19 and row+1 >= 0) and (col <= 19 and col >= 0):    
+    if (row+1 <= GRIDROWS-1 and row+1 >= 0) and (col <= GRIDCOLS-1 and col >= 0):    
         neighbors.append(grid[row+1][col])       # down
         
-    if (row+1 <= 19 and row+1 >= 0) and (col-1 <= 19 and col-1 >= 0):    
+    if (row+1 <= GRIDROWS-1 and row+1 >= 0) and (col-1 <= GRIDCOLS-1 and col-1 >= 0):    
         neighbors.append(grid[row+1][col-1])     # down-left
 
-    if (row <= 19 and row >= 0) and (col-1 <= 19 and col-1 >= 0):     
+    if (row <= GRIDROWS-1 and row >= 0) and (col-1 <= GRIDCOLS-1 and col-1 >= 0):     
         neighbors.append(grid[row][col-1])       # left
    
     for value in neighbors:
@@ -96,11 +96,11 @@ def run_game(grid):
 
     # lets begin evaluation
     game_round = 0
-    while game_round <= GAMEROUNDS:
+    while game_round < GAMEROUNDS:
         # run rules for each cell in the grid and track cells that need to be updated
         grid_updates = []
-        for row in range(20):
-            for col in range(20):
+        for row in range(GRIDROWS):
+            for col in range(GRIDCOLS):
                 run_rules(grid, row, col, grid_updates)
        
         # apply identified changes to cells after full grid evaluation
